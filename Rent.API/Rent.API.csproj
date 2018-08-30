@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rent.Data\Rent.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UtilityLibrary">
+      <HintPath>..\..\UtilityLibrary\UtilityLibrary\bin\Debug\netcoreapp2.1\UtilityLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
