@@ -7,14 +7,14 @@ namespace Rent.Data
 {
     public interface IRentService
     {
-        IRentalsRepository Rentals { get; set; }
+        IRentalRepository Rentals { get; set; }
         void Dispose();
         void Commit();
     }
 
     public class RentService : IRentService
     {
-        public IRentalsRepository Rentals { get; set; }
+        public IRentalRepository Rentals { get; set; }
 
         public virtual void Dispose()
         {

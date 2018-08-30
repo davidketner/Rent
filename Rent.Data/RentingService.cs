@@ -9,7 +9,7 @@ namespace Rent.Data
         public RentingService(RentDbContext db) : base()
         {
             DbContext = db;
-            Rentals = new RentalsRepository(db);
+            Rentals = new RentalRepository(db);
         }
 
         public override void Commit()

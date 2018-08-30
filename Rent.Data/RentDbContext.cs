@@ -29,6 +29,15 @@ namespace Rent.Data
         public DbSet<Expertise> Expertises { get; set; }
         public DbSet<ExpertiseLevel> ExpertiseLevels { get; set; }
         public DbSet<InstructorExpertise> InstructorExpertises { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<WageRate> WageRates { get; set; }
+        public DbSet<InstructorTicket> InstructorTickets { get; set; }
+        public DbSet<InstructorWageRate> InstructorWageRates { get; set; }
+        public DbSet<InstructorAvailability> InstructorAvailabilities { get; set; }
+        public DbSet<InstructorPayment> InstructorPayments { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<RentalPlace> RentalPlaces { get; set; }
+        public DbSet<InstructorCourse> InstructorCourses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -91,6 +100,46 @@ namespace Rent.Data
                    .HasOne(ie => ie.Expertise)
                    .WithMany(e => e.Instructors)
                    .HasForeignKey(ie => ie.ExpertiseId);
+
+            builder.Entity<InstructorTicket>()
+                   .HasKey(it => new { it.InstructorId, it.TicketId });
+
+            builder.Entity<InstructorTicket>()
+                  .HasOne(it => it.Instructor)
+                  .WithMany(i => i.Tickets)
+                  .HasForeignKey(it => it.InstructorId);
+
+            builder.Entity<InstructorTicket>()
+                   .HasOne(it => it.Ticket)
+                   .WithMany(t => t.Instructors)
+                   .HasForeignKey(it => it.TicketId);
+
+            builder.Entity<InstructorWageRate>()
+                   .HasKey(iw => new { iw.InstructorId, iw.WageRateId });
+
+            builder.Entity<InstructorWageRate>()
+                  .HasOne(iw => iw.Instructor)
+                  .WithMany(i => i.WageRates)
+                  .HasForeignKey(iw => iw.InstructorId);
+
+            builder.Entity<InstructorWageRate>()
+                   .HasOne(iw => iw.WageRate)
+                   .WithMany(w => w.Instructors)
+                   .HasForeignKey(iw => iw.WageRateId);
+
+            builder.Entity<InstructorCourse>()
+                   .HasKey(ic => new { ic.InstructorId, ic.CourseId });
+
+            builder.Entity<InstructorCourse>()
+                  .HasOne(ic => ic.Instructor)
+                  .WithMany(i => i.Courses)
+                  .HasForeignKey(ic => ic.InstructorId);
+
+            builder.Entity<InstructorCourse>()
+                   .HasOne(ic => ic.Course)
+                   .WithMany(c => c.Instructors)
+                   .HasForeignKey(ic => ic.CourseId);
+
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

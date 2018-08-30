@@ -23,5 +23,6 @@ namespace Rent.Data.Entity
         public virtual Company Company { get; set; }
 
         public virtual ICollection<InstructorRental> Instructors { get; set; }
+        public virtual ICollection<RentalPlace> Places { get; set; }
     }
 }

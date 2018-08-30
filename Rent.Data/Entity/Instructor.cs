@@ -18,5 +18,10 @@ namespace Rent.Data.Entity
         public virtual ICollection<InstructorRental> Rentals { get; set; }
         public virtual ICollection<InstructorLanguage> Languages { get; set; }
         public virtual ICollection<InstructorExpertise> Expertises { get; set; }
+        public virtual ICollection<InstructorTicket> Tickets { get; set; }
+        public virtual ICollection<InstructorWageRate> WageRates { get; set; }
+        public virtual ICollection<InstructorAvailability> Availabilities { get; set; }
+        public virtual ICollection<InstructorPayment> InstructorPayments { get; set; }
+        public virtual ICollection<InstructorCourse> Courses { get; set; }
     }
 }
