@@ -1,2 +1,2 @@
 # Rent
-Renting software for ski schools
+Renting software for ski equipment
