@@ -1,7 +1,4 @@
 ﻿using Rent.Data.Entity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using UtilityLibrary;
 
 namespace Rent.Data.Repositories

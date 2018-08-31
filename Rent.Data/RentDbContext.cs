@@ -140,6 +140,37 @@ namespace Rent.Data
                    .WithMany(c => c.Instructors)
                    .HasForeignKey(ic => ic.CourseId);
 
+            builder.Entity<Course>().HasKey(c => c.Id);
+
+            builder.Entity<Course>().HasOne(c => c.Expertise)
+                .WithMany(e => e.Courses)
+                .HasForeignKey(c => c.ExpertiseId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Course>().HasOne(c => c.ExpertiseLevel)
+                .WithMany(e => e.Courses)
+                .HasForeignKey(c => c.ExpertiseLevelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Course>().HasOne(c => c.Language)
+                .WithMany(e => e.Courses)
+                .HasForeignKey(c => c.LanguageId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Course>().HasOne(c => c.LanguageLevel)
+                .WithMany(e => e.Courses)
+                .HasForeignKey(c => c.LanguageLevelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Course>().HasOne(c => c.Rental)
+                .WithMany(e => e.Courses)
+                .HasForeignKey(c => c.RentalId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Course>().HasOne(c => c.RentalPlace)
+                .WithMany(e => e.Courses)
+                .HasForeignKey(c => c.RentalPlaceId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

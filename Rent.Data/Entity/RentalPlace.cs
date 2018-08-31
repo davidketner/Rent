@@ -12,5 +12,6 @@ namespace Rent.Data.Entity
 
         public int RentalId { get; set; }
         public virtual Rental Rental { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

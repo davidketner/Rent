@@ -15,7 +15,7 @@ namespace Rent.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -125,9 +125,11 @@ namespace Rent.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Shortname");
+                    b.Property<string>("Shortname")
+                        .IsRequired();
 
                     b.Property<DateTime?>("Updated");
 
@@ -158,7 +160,11 @@ namespace Rent.Data.Migrations
 
                     b.Property<int>("Level");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Shortname")
+                        .IsRequired();
 
                     b.Property<DateTime?>("Updated");
 
@@ -187,7 +193,8 @@ namespace Rent.Data.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("Firstname");
+                    b.Property<string>("Firstname")
+                        .IsRequired();
 
                     b.Property<bool>("IsDeleted");
 
@@ -195,7 +202,8 @@ namespace Rent.Data.Migrations
 
                     b.Property<int>("Order");
 
-                    b.Property<string>("Surname");
+                    b.Property<string>("Surname")
+                        .IsRequired();
 
                     b.Property<DateTime?>("Updated");
 
@@ -388,9 +396,11 @@ namespace Rent.Data.Migrations
 
                     b.Property<bool>("Localized");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Shortname");
+                    b.Property<string>("Shortname")
+                        .IsRequired();
 
                     b.Property<DateTime?>("Updated");
 
@@ -421,7 +431,8 @@ namespace Rent.Data.Migrations
 
                     b.Property<int>("Level");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<DateTime?>("Updated");
 
@@ -458,9 +469,11 @@ namespace Rent.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Shortname");
+                    b.Property<string>("Shortname")
+                        .IsRequired();
 
                     b.Property<string>("Street");
 
@@ -534,7 +547,8 @@ namespace Rent.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int>("RentalId");
 
@@ -565,7 +579,8 @@ namespace Rent.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<bool>("Percental");
 
@@ -587,32 +602,34 @@ namespace Rent.Data.Migrations
             modelBuilder.Entity("Rent.Data.Entity.Course", b =>
                 {
                     b.HasOne("Rent.Data.Entity.Expertise", "Expertise")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("ExpertiseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Rent.Data.Entity.ExpertiseLevel", "ExpertiseLevel")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("ExpertiseLevelId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Rent.Data.Entity.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
+                        .WithMany("Courses")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Rent.Data.Entity.LanguageLevel", "LanguageLevel")
-                        .WithMany()
-                        .HasForeignKey("LanguageLevelId");
+                        .WithMany("Courses")
+                        .HasForeignKey("LanguageLevelId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Rent.Data.Entity.Rental", "Rental")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("RentalId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Rent.Data.Entity.RentalPlace", "RentalPlace")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("RentalPlaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Rent.Data.Entity.InstructorAvailability", b =>

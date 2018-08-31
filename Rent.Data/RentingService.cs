@@ -10,6 +10,13 @@ namespace Rent.Data
         {
             DbContext = db;
             Rentals = new RentalRepository(db);
+            Instructors = new InstructorRepository(db);
+            Languages = new LanguageRepository(db);
+            LanguageLevels = new LanguageLevelRepository(db);
+            Tickets = new TicketRepository(db);
+            WageRates = new WageRateRepository(db);
+            Expertises = new ExpertiseRepository(db);
+            ExpertiseLevels = new ExpertiseLevelRepository(db);
         }
 
         public override void Commit()

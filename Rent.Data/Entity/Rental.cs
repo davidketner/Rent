@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using UtilityLibrary;
 
@@ -7,7 +8,9 @@ namespace Rent.Data.Entity
 {
     public class Rental : BaseEntity<int>, ISoftDeletable
     {
+        [Required]
         public string Shortname { get; set; }
+        [Required]
         public string Name { get; set; }
         public string BusinessId { get; set; }
         public string TaxId { get; set; }
@@ -24,5 +27,6 @@ namespace Rent.Data.Entity
 
         public virtual ICollection<InstructorRental> Instructors { get; set; }
         public virtual ICollection<RentalPlace> Places { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }
