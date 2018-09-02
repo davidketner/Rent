@@ -34,6 +34,11 @@ namespace Rent.Data.Entity
         public int RentalPlaceId { get; set; }
         public virtual RentalPlace RentalPlace { get; set; }
 
-        public virtual ICollection<InstructorCourse> Instructors { get; set; }
+        private ICollection<InstructorCourse> instructors;
+        public virtual ICollection<InstructorCourse> Instructors
+        {
+            get { return instructors ?? (instructors = new HashSet<InstructorCourse>()); }
+            set { instructors = value; }
+        }
     }
 }

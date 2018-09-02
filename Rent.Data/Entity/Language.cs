@@ -15,7 +15,18 @@ namespace Rent.Data.Entity
         public string Lang { get; set; }
         public bool Localized { get; set; } = false;
 
-        public virtual ICollection<InstructorLanguage> Instructors { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
+        private ICollection<InstructorLanguage> instructors;
+        public virtual ICollection<InstructorLanguage> Instructors
+        {
+            get { return instructors ?? (instructors = new HashSet<InstructorLanguage>()); }
+            set { instructors = value; }
+        }
+
+        private ICollection<Course> courses;
+        public virtual ICollection<Course> Courses
+        {
+            get { return courses ?? (courses = new HashSet<Course>()); }
+            set { courses = value; }
+        }
     }
 }

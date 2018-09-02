@@ -25,8 +25,25 @@ namespace Rent.Data.Entity
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
 
-        public virtual ICollection<InstructorRental> Instructors { get; set; }
-        public virtual ICollection<RentalPlace> Places { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
+        private ICollection<RentalPlace> places;
+        public virtual ICollection<RentalPlace> Places
+        {
+            get { return places ?? (places = new HashSet<RentalPlace>()); }
+            set { places = value; }
+        }
+
+        private ICollection<InstructorRental> instructors;
+        public virtual ICollection<InstructorRental> Instructors
+        {
+            get { return instructors ?? (instructors = new HashSet<InstructorRental>()); }
+            set { instructors = value; }
+        }
+
+        private ICollection<Course> courses;
+        public virtual ICollection<Course> Courses
+        {
+            get { return courses ?? (courses = new HashSet<Course>()); }
+            set { courses = value; }
+        }
     }
 }

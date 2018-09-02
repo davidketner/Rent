@@ -14,7 +14,18 @@ namespace Rent.Data.Entity
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<InstructorExpertise> Instructors { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
+        private ICollection<InstructorExpertise> instructors;
+        public virtual ICollection<InstructorExpertise> Instructors
+        {
+            get { return instructors ?? (instructors = new HashSet<InstructorExpertise>()); }
+            set { instructors = value; }
+        }
+
+        private ICollection<Course> courses;
+        public virtual ICollection<Course> Courses
+        {
+            get { return courses ?? (courses = new HashSet<Course>()); }
+            set { courses = value; }
+        }
     }
 }

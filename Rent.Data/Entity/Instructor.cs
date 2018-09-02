@@ -18,20 +18,60 @@ namespace Rent.Data.Entity
         public string Description { get; set; }
         public int Order { get; set; }
 
-        public virtual ICollection<InstructorRental> Rentals { get; set; }
-        public virtual ICollection<InstructorLanguage> Languages { get; set; }
-        public virtual ICollection<InstructorExpertise> Expertises { get; set; }
-        public virtual ICollection<InstructorTicket> Tickets { get; set; }
-        public virtual ICollection<InstructorAvailability> Availabilities { get; set; }
-        public virtual ICollection<InstructorPayment> InstructorPayments { get; set; }
-        public virtual ICollection<InstructorCourse> Courses { get; set; }
+        private ICollection<InstructorRental> rentals;
+        public virtual ICollection<InstructorRental> Rentals
+        {
+            get { return rentals ?? (rentals = new HashSet<InstructorRental>()); }
+            set { rentals = value; }
+        }
 
+        private ICollection<InstructorLanguage> languages;
+        public virtual ICollection<InstructorLanguage> Languages
+        {
+            get { return languages ?? (languages = new HashSet<InstructorLanguage>()); }
+            set { languages = value; }
+        }
+
+        private ICollection<InstructorTicket> tickets;
+        public virtual ICollection<InstructorTicket> Tickets
+        {
+            get { return tickets ?? (tickets = new HashSet<InstructorTicket>()); }
+            set { tickets = value; }
+        }
+
+        private ICollection<InstructorAvailability> availabilities;
+        public virtual ICollection<InstructorAvailability> Availabilities
+        {
+            get { return availabilities ?? (availabilities = new HashSet<InstructorAvailability>()); }
+            set { availabilities = value; }
+        }
+
+        private ICollection<InstructorPayment> payments;
+        public virtual ICollection<InstructorPayment> Payments
+        {
+            get { return payments ?? (payments = new HashSet<InstructorPayment>()); }
+            set { payments = value; }
+        }
+
+        private ICollection<InstructorCourse> courses;
+        public virtual ICollection<InstructorCourse> Courses
+        {
+            get { return courses ?? (courses = new HashSet<InstructorCourse>()); }
+            set { courses = value; }
+        }
 
         private ICollection<InstructorWageRate> wageRates;
         public virtual ICollection<InstructorWageRate> WageRates
         {
             get { return wageRates ?? (wageRates = new HashSet<InstructorWageRate>()); }
             set { wageRates = value; }
+        }
+
+        private ICollection<InstructorExpertise> expertises;
+        public virtual ICollection<InstructorExpertise> Expertises
+        {
+            get { return expertises ?? (expertises = new HashSet<InstructorExpertise>()); }
+            set { expertises = value; }
         }
     }
 }
