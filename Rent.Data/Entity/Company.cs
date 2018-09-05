@@ -8,6 +8,7 @@ namespace Rent.Data.Entity
     public class Company : BaseEntity<int>, ISoftDeletable
     {
         public string Name { get; set; }
+        public int UniqueIndex { get; set; }
 
         private ICollection<Rental> rentals;
         public virtual ICollection<Rental> Rentals

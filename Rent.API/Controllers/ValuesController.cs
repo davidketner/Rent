@@ -64,6 +64,30 @@ namespace Rent.API.Controllers
             var wr2 = new WageRate { Name = "Procentuální standart", Rate = 10, Percental = true };
             Svc.CreateWageRate(wr1, userId);
             Svc.CreateWageRate(wr2, userId);
+            //
+
+            // Create Company
+            var company = new Company { Name = "Ski Rychleby", UniqueIndex = 46 };
+            Svc.CreateCompany(company, userId);
+            //
+
+            // Create Rentals 
+            var r1 = new Rental { Name = "Travná", Shortname = "Travná", City = "Travná", Company = company, Country = "Česká republika" };
+            var r2 = new Rental { Name = "Zálesí", Shortname = "Zálesí", City = "Zálesí", Company = company, Country = "Česká republika" };
+            Svc.CreateRental(r1, userId);
+            Svc.CreateRental(r2, userId);
+            //
+
+            // Create Tickets
+            var t1 = new Ticket { Name = "Celosezónní", Rental = r1 };
+            var t2 = new Ticket { Name = "Dopolední", Rental = r1 };
+            var t3 = new Ticket { Name = "Celosezónní", Rental = r2 };
+            Svc.CreateTicket(t1, userId);
+            Svc.CreateTicket(t2, userId);
+            Svc.CreateTicket(t3, userId);
+            //
+
+
             Svc.Commit();
 
             // Create Instructor
@@ -71,8 +95,26 @@ namespace Rent.API.Controllers
             i.WageRates.Add(new InstructorWageRate { Default = true, WageRateId = wr1.Id });
             i.WageRates.Add(new InstructorWageRate { Default = false, WageRateId = wr2.Id });
             i.Expertises.Add(new InstructorExpertise { ExpertiseId = e2.Id, ExpertiseLevelId = el2.Id });
-
+            i.Expertises.Add(new InstructorExpertise { ExpertiseId = e2.Id, ExpertiseLevelId = el3.Id });
+            i.Rentals.Add(new InstructorRental { RentalId = r1.Id });
+            i.Rentals.Add(new InstructorRental { RentalId = r2.Id });
+            i.Tickets.Add(new InstructorTicket { TicketId = t1.Id, From = DateTime.Now, To = DateTime.Now.AddDays(50) });
+            i.Tickets.Add(new InstructorTicket { TicketId = t3.Id, From = DateTime.Now, To = DateTime.Now.AddDays(50) });
+            i.Languages.Add(new InstructorLanguage { LanguageId = l2.Id, LanguageLevelId = ll2.Id });
+            i.Languages.Add(new InstructorLanguage { LanguageId = l3.Id, LanguageLevelId = ll1.Id });
+            i.Languages.Add(new InstructorLanguage { LanguageId = l2.Id, LanguageLevelId = ll4.Id });
+            i.Languages.Add(new InstructorLanguage { LanguageId = l2.Id, LanguageLevelId = ll5.Id });
+            Svc.CreateInstructor(i, userId);
             Svc.Commit();
+            //
+
+            // Create Availabilities
+            var a1 = new InstructorAvailability { InstructorId = i.Id, From = new DateTime(2018, 9, 6, 8, 0, 0), To = new DateTime(2018, 9, 9, 16, 30, 0) };
+            var a2 = new InstructorAvailability { InstructorId = i.Id, From = new DateTime(2018, 9, 11, 10, 0, 0), To = new DateTime(2018, 9, 11, 16, 0, 0) };
+            var avais = new List<InstructorAvailability>() { a1, a2 };
+            Svc.CreateInstructorAvailability(avais, userId);
+            Svc.Commit();
+            //
             // End Testing //
             return "[value1, value2]";
         }

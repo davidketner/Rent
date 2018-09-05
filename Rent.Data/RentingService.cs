@@ -9,6 +9,7 @@ namespace Rent.Data
         public RentingService(RentDbContext db) : base()
         {
             DbContext = db;
+            Companies = new CompanyRepository(db);
             Rentals = new RentalRepository(db);
             Instructors = new InstructorRepository(db);
             Languages = new LanguageRepository(db);
