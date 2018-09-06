@@ -18,6 +18,7 @@ namespace Rent.Data
         IWageRateRepository WageRates { get; set; }
         IExpertiseRepository Expertises { get; set; }
         IExpertiseLevelRepository ExpertiseLevels { get; set; }
+        ICourseRepository Courses { get; set; }
         void Dispose();
         void Commit();
         bool CreateCompany(Company company, string userId);
@@ -31,6 +32,8 @@ namespace Rent.Data
         bool CreateExpertiseLevel(ExpertiseLevel expertiseLevel, string userId);
         bool CreateInstructorAvailability(ICollection<InstructorAvailability> availabilities, string userId);
         bool CreateInstructorAvailability(InstructorAvailability availability, string userId);
+        bool CreateCourse(Course course, string userId);
+        bool CreateRentalPlace(RentalPlace rentalPlace, string userId);
     }
 
     public class RentService : IRentService
@@ -44,6 +47,7 @@ namespace Rent.Data
         public IWageRateRepository WageRates { get; set; }
         public IExpertiseRepository Expertises { get; set; }
         public IExpertiseLevelRepository ExpertiseLevels { get; set; }
+        public ICourseRepository Courses { get; set; }
         public virtual void Dispose()
         {
             throw new NotImplementedException();
@@ -293,5 +297,72 @@ namespace Rent.Data
             return false;
         }
 
+        public bool CreateCourse(Course course, string userId)
+        {
+            try
+            {
+                if(course.From >= course.To)
+                {
+                    return false;
+                }
+
+                course.Name = course.Name.Trim();
+                course.UserCreated = userId;
+                foreach (var i in course.Instructors)
+                {
+                    var instructor = Instructors.FindById(i.InstructorId);
+                    if (!instructor.IsAvailable(course.From, course.To))
+                    {
+                        return false;
+                    }
+                        
+                    if(!instructor.Rentals.Any(x => x.RentalId == course.RentalId))
+                    {
+                        return false;
+                    }
+
+                    if(!instructor.HasExpertise(Expertises.FindById(course.ExpertiseId), ExpertiseLevels.FindById(course.ExpertiseLevelId)))
+                    {
+                        return false;
+                    }
+
+                    
+                    if(course.LanguageId.HasValue && !instructor.HasLanguage(Languages.FindById(course.LanguageId.Value), 
+                        course.LanguageLevelId.HasValue? LanguageLevels.FindById(course.LanguageLevelId.Value) : null))
+                    {
+                        return false;
+                    }
+                }
+
+                Courses.Add(course);
+                return true;
+            }
+            catch (Exception e)
+            {
+
+            }
+            return false;
+        }
+
+        public bool CreateRentalPlace(RentalPlace rentalPlace, string userId)
+        {
+            try
+            {
+                if (!Rentals.Items.SelectMany(x => x.Places).Any(x => x.RentalId == rentalPlace.RentalId && x.Name == rentalPlace.Name.Trim()))
+                {
+                    rentalPlace.Name = rentalPlace.Name.Trim();
+                    rentalPlace.UserCreated = userId;
+                    var rental = Rentals.FindById(rentalPlace.RentalId);
+                    rental.Places.Add(rentalPlace);
+                    Rentals.Update(rental);
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            return false;
+        }
     }
 }

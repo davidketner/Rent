@@ -18,6 +18,7 @@ namespace Rent.Data
             WageRates = new WageRateRepository(db);
             Expertises = new ExpertiseRepository(db);
             ExpertiseLevels = new ExpertiseLevelRepository(db);
+            Courses = new CourseRepository(db);
         }
 
         public override void Commit()

@@ -9,8 +9,6 @@ namespace Rent.Data.Entity
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string PeopleNames { get; set; }
-        public string PeopleCount { get; set; }
         public bool Private { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }

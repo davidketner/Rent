@@ -87,8 +87,15 @@ namespace Rent.API.Controllers
             Svc.CreateTicket(t3, userId);
             //
 
-
             Svc.Commit();
+
+            // Create Rental Places
+            var rp1 = new RentalPlace { Name = "U sjezdovky", Description = "Místo pro sraz", RentalId = r1.Id };
+            var rp2 = new RentalPlace { Name = "U vleku", RentalId = r1.Id };
+            Svc.CreateRentalPlace(rp1, userId);
+            Svc.CreateRentalPlace(rp2, userId);
+            Svc.Commit();
+            //
 
             // Create Instructor
             var i = new Instructor { Firstname = "David", Surname = "Tománek", Email = "lakomyd@seznam.cz", MobilPhone = "777555111" };
@@ -115,6 +122,26 @@ namespace Rent.API.Controllers
             Svc.CreateInstructorAvailability(avais, userId);
             Svc.Commit();
             //
+
+            // Create Courses
+            var c1 = new Course { Name = "Ovesný - děti", From = new DateTime(2018, 9, 6, 8, 0, 0), To = new DateTime(2018, 9, 6, 10, 0, 0), ExpertiseId = e2.Id, ExpertiseLevelId = el2.Id, RentalId = r1.Id, LanguageId = l2.Id, RentalPlaceId = rp1.Id };
+            var c2 = new Course { Name = "Toman - děti", From = new DateTime(2018, 9, 6, 9, 0, 0), To = new DateTime(2018, 9, 6, 11, 0, 0), ExpertiseId = e2.Id, ExpertiseLevelId = el2.Id, RentalId = r1.Id, LanguageId = l2.Id, RentalPlaceId = rp1.Id };
+            var c3 = new Course { Name = "Dominik", From = new DateTime(2018, 9, 6, 10, 0, 0), To = new DateTime(2018, 9, 6, 11, 0, 0), ExpertiseId = e2.Id, ExpertiseLevelId = el2.Id, RentalId = r1.Id, LanguageId = l2.Id, RentalPlaceId = rp1.Id };
+            var c4 = new Course { Name = "Lubos - děti", From = new DateTime(2018, 9, 5, 8, 0, 0), To = new DateTime(2018, 9, 5, 10, 0, 0), ExpertiseId = e2.Id, ExpertiseLevelId = el2.Id, RentalId = r1.Id, LanguageId = l2.Id, RentalPlaceId = rp1.Id };
+            c1.Instructors.Add(new InstructorCourse { InstructorId = i.Id });
+            c2.Instructors.Add(new InstructorCourse { InstructorId = i.Id });
+            c3.Instructors.Add(new InstructorCourse { InstructorId = i.Id });
+            c4.Instructors.Add(new InstructorCourse { InstructorId = i.Id });
+            Svc.CreateCourse(c1, userId);
+            Svc.Commit();
+            Svc.CreateCourse(c2, userId);
+            Svc.Commit();
+            Svc.CreateCourse(c3, userId);
+            Svc.Commit();
+            Svc.CreateCourse(c4, userId);
+            Svc.Commit();
+            //
+
             // End Testing //
             return "[value1, value2]";
         }

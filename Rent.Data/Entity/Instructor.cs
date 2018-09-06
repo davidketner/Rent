@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 using UtilityLibrary;
 
@@ -72,6 +73,36 @@ namespace Rent.Data.Entity
         {
             get { return expertises ?? (expertises = new HashSet<InstructorExpertise>()); }
             set { expertises = value; }
+        }
+
+        public bool IsAvailable(DateTime from, DateTime to)
+        {
+            if(Availabilities.Any(x => x.From.Date <= from.Date && x.To.Date >= to.Date && TimeSpan.Compare(x.From.TimeOfDay, from.TimeOfDay) <= 0 && TimeSpan.Compare(x.To.TimeOfDay, to.TimeOfDay) >= 0))
+            {
+                if(!Courses.Any(x => x.Course.From < to && from < x.Course.To))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool HasExpertise(Expertise expertise, ExpertiseLevel expertiseLevel)
+        {
+            if(Expertises.Any(x => x.Expertise == expertise && x.ExpertiseLevel.Level >= expertiseLevel.Level))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool HasLanguage(Language language, LanguageLevel languageLevel)
+        {
+            if(Languages.Any(x => x.Language == language && x.LanguageLevel.Level >= (languageLevel != null? languageLevel.Level : 0)))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
