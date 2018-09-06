@@ -7,10 +7,10 @@ namespace Rent.Data.Entity
     public class InstructorLanguage
     {
         public int InstructorId { get; set; }
-        public Instructor Instructor { get; set; }
+        public virtual Instructor Instructor { get; set; }
         public int LanguageId { get; set; }
-        public Language Language { get; set; }
+        public virtual Language Language { get; set; }
         public int LanguageLevelId { get; set; }
-        public LanguageLevel LanguageLevel { get; set; }
+        public virtual LanguageLevel LanguageLevel { get; set; }
     }
 }

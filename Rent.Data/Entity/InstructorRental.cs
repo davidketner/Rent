@@ -3,8 +3,8 @@
     public class InstructorRental
     {
         public int InstructorId { get; set; }
-        public Instructor Instructor { get; set; }
+        public virtual Instructor Instructor { get; set; }
         public int RentalId { get; set; }
-        public Rental Rental { get; set; }
+        public virtual Rental Rental { get; set; }
     }
 }

@@ -21,6 +21,7 @@ namespace Rent.Data.Migrations
                     UserUpdated = table.Column<string>(nullable: true),
                     UserDeleted = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    UniqueIndex = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -441,8 +442,6 @@ namespace Rent.Data.Migrations
                     UserDeleted = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    PeopleNames = table.Column<string>(nullable: true),
-                    PeopleCount = table.Column<string>(nullable: true),
                     Private = table.Column<bool>(nullable: false),
                     From = table.Column<DateTime>(nullable: false),
                     To = table.Column<DateTime>(nullable: false),

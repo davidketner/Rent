@@ -10,8 +10,8 @@ using Rent.Data;
 namespace Rent.Data.Migrations
 {
     [DbContext(typeof(RentDbContext))]
-    [Migration("20180906070952_EditCourse")]
-    partial class EditCourse
+    [Migration("20180906115450_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

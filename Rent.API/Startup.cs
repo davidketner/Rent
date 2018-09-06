@@ -27,7 +27,10 @@ namespace Rent.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(
+                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                 );
             var connection = @"Server=.\SQLEXPRESS;Database=RentDB;Trusted_Connection=True;";
             services.AddDbContext<RentDbContext>(options => options.UseSqlServer(connection));
             services.AddScoped<IRentService, RentingService>();
